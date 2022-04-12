@@ -1,6 +1,6 @@
 #include "pieces.h"
 
-char matrixPieces [7][4][5][5]{
+char mPieces [7][4][5][5]{
 // Square
   {
    {
@@ -222,7 +222,7 @@ char matrixPieces [7][4][5][5]{
    }
 };
 
-int matrixPiecesInitialPositio[7][4][2][2]{
+int mPiecesInitialPosition[7][4][2]{
   /* Square */
   {
     {-2, -3}, 
