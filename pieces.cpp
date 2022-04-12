@@ -1,6 +1,6 @@
 #include "pieces.h"
 
-char mPieces [7][4][5][5]{
+char matrixPieces [7][4][5][5]{
 // Square
   {
    {
@@ -221,3 +221,95 @@ char mPieces [7][4][5][5]{
     }
    }
 };
+
+int matrixPiecesInitialPositio[7][4][2][2]{
+  /* Square */
+  {
+    {-2, -3}, 
+    {-2, -3},
+    {-2, -3},
+    {-2, -3}
+  },
+  /* I */
+  {
+    {-2, -2},
+    {-2, -3},
+    {-2, -2},
+    {-2, -3}
+  },
+  /* L */
+  {
+    {-2, -3},
+    {-2, -3},
+    {-2, -3},
+    {-2, -2}
+  },
+  /* L mirrored */
+  {
+    {-2, -3},
+    {-2, -2},
+    {-2, -3},
+    {-2, -3}
+  },
+  /* N */
+  {
+    {-2, -3},
+    {-2, -3},
+    {-2, -3},
+    {-2, -2}
+  },
+  /* N mirrored */
+  {
+    {-2, -3},
+    {-2, -3},
+    {-2, -3},
+    {-2, -2}
+   },
+  /* T */
+  {
+    {-2, -3},
+    {-2, -3},
+    {-2, -3},
+    {-2, -2}
+   },
+};
+
+
+/*
+  Parameters:
+    >> pPiece:      Piece to draw
+    >> pRotation:   1 of the 4 possible rotations
+    >> pX:          Horizontal position in blocks
+    >> pY:          Vertical position in blocks
+
+    Returns: type of a block (0 = no-block, 1 = normal block, 2 = pivot block
+*/
+int Pieces::GetBlockType (int pPiece, int pRotation, int pX, int pY){
+  return mPieces [pPiece][pRotation][pX][pY];
+}
+
+/*
+  Parameters:
+    >> pPiece:  Piece to draw
+    >> pRotation: 1 of the 4 possible rotations
+
+  Returns the horizontal displacement of the piece that has to be applied in 
+  order to create it in the correct position.
+*/
+int Pieces::GetXInitialPosition (int pPiece, int pRotation){
+  return mPiecesInitialPosition[pPiece][pRotation][0];
+}
+
+/* 
+
+  Parameters:
+
+    >> pPiece:  Piece to draw
+    >> pRotation: 1 of the 4 possible rotations
+    
+    Returns the vertical displacement of the piece that has to be applied in 
+    order to create it in thecorrect position.
+*/
+int Pieces::GetYInitialPosition (int pPiece, int pRotation){
+  return mPiecesInitialPosition[pPiece][pRotation][1];
+}
