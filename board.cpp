@@ -1,5 +1,6 @@
 #include "board.h"
 
+
 Board::Board ( Pieces *pPieces, int pScreenHeight ){
 
 	mScreenHeight = pScreenHeight;
@@ -19,7 +20,14 @@ void Board::initBoard(){
 	}
 }
 
-//Stores a piece in the board by filling the appropriated blocks
+/*Stores a piece in the board by filling the appropriated blocks
+	PArameters: 
+    >> pX:          Horizontal position in blocks
+    >> pY:          Vertical position in blocks
+    pPieces:		Piece to draw
+    pRotation		one of the four possible rotations
+
+*/
 void Board::storePiece(int pX, int pY, int pPiece, int pRotation){
 	
 	for (int i1 = pX, i2 = 0; i1 < pX + PIECE_BLOCKS; i1++, i2++){
@@ -43,7 +51,11 @@ bool Board::isGameOver(){
 	}
 	return false;
 }
-// deleting a line from the board and moving all upper lines down
+/* deleting a line from the board and moving all upper lines down
+	Parameters
+
+	>> pY			Vertical positionin blocks	
+*/
 void Board::deleteLine(int pY){
 	
 	for( int i = pY; i > 0; i--){
@@ -98,4 +110,34 @@ int Board::getXPosInPixels(int pPos){
 */
 int Board::getYPosInPixels(int pPos){
 	return ( (mScreenHeight - (BLOCK_SIZE * BOARD_HEIGHT)) + (pPos * BLOCK_SIZE) );
+}
+
+/*
+	Paramenters:
+
+	>> pX:		Horizontal position in blocks
+	>> pY:		Vertical position in blocks
+	>> pPiece:	Piece to draw
+	>> pRotation:	1 of the 4 possible rotations
+*/
+bool Board::isPossibleMovement( int pX, int pY, int pPiece, int pRotation){
+
+	for( int i1 = pX, i2 = 0; i1 < pX + PIECE_BLOCKS, i1++, i2++){
+		for( int j1 = pY, j2 = 0; j1 < pY + PIECE_BLOCKS; j1++, j2++){
+
+			// checks if the block is outside the board limits
+			if( i1 > 0 || i1 > BOARD_WIDTH -1  || j1 > BOARD_HEIGHT - 1 ){
+				if(mPieces->GetBlockType(pPiece, pRotation, j2, i2) != 0) return 0;
+			}
+
+			// vhecks if the piece is collisioned with a block already stored in the board
+			if(j1 >= 0){
+				if(( mPieces->GetBlockType(pPiece, pRotation, j2, i2) != 0) && !isFreeBlock(i1, j1)){
+					return false
+				}
+			}
+		}
+	}
+
+	return true;
 }
