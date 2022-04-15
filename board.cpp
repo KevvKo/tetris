@@ -53,6 +53,7 @@ void Board::deleteLine(int pY){
 	}
 }
 
+// checks if a line is complete filled and deleting them
 void Board::deletePossibleLines(){
 
 	for (int i = 0; i < BOARD_HEIGHT; i++){
@@ -65,4 +66,36 @@ void Board::deletePossibleLines(){
 
 		if( j == BOARD_WIDTH ) deleteLine(i);
 	}
+}
+
+
+/*
+  Parameters:
+    >> pX:          Horizontal position in blocks
+    >> pY:          Vertical position in blocks
+
+    Returns: true is the block is filled, otherwise false
+*/
+bool Board::isFreeBlock( int pX, int pY){
+	return mBoard[pX][pY] == POS_FREE;
+}
+
+/*
+  Parameters:
+    >> pPos:          Horizontal position in blocks
+
+    Returns: horizontal position of a block
+*/
+int Board::getXPosInPixels(int pPos){
+	return  ( ( BOARD_POSITION - (BLOCK_SIZE * (BOARD_WIDTH / 2)) ) + (pPos * BLOCK_SIZE) );
+}
+
+/*
+  Parameters:
+    >> pPos:          Horizontal position in blocks
+
+    Returns: vertical position of a given block
+*/
+int Board::getYPosInPixels(int pPos){
+	return ( (mScreenHeight - (BLOCK_SIZE * BOARD_HEIGHT)) + (pPos * BLOCK_SIZE) );
 }
