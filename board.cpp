@@ -47,9 +47,22 @@ bool Board::isGameOver(){
 void Board::deleteLine(int pY){
 	
 	for( int i = pY; i > 0; i--){
-		for(int i = 0; i < BOARD_WIDTH; i++){
-			mBoard[i][j] = mBoard[i][j-1];
+		for(int j = 0; j < BOARD_WIDTH; j++){
+			mBoard[j][i] = mBoard[j][i-1];
 		}
 	}
 }
 
+void Board::deletePossibleLines(){
+
+	for (int i = 0; i < BOARD_HEIGHT; i++){
+		
+		int j = 0;
+		while(j < BOARD_WIDTH){
+			if(mBoard[j][i] != POS_FILLED) break;
+			j++;
+		}
+
+		if( j == BOARD_WIDTH ) deleteLine(i);
+	}
+}
