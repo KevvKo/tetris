@@ -86,3 +86,43 @@ void Game::drawPiece(int pX, int pY, int pPiece, int pRotation ){
 		}
 	}
 }
+
+void Game::drawBoard(){
+
+	// Calculate the limits of the board in pixels	
+	int mX1 = BOARD_POSITION - ( BLOCK_SIZE * (BOARD_WIDTH / 2)) - x;
+	int mX2 = BOARD_POSITION + ( BLOCK_SIZE * (BOARD_WIDTH / 2));
+	int mY = mScreenHeight - (BLOCK_SIZE * BOARD_HEIGHT);
+
+	// checks that the vertical margin is not to small
+	//assert (mX1 > MIN_HORIZONTAL_MARGIN);
+
+	mIO->drawRectangle( mX1 - BOARD_LINE_WIDTH, mY, mX1, mScreenHeight - 1, BLUE);
+	mIO->drawRectangle( mX2, mY, mX2 + BOARD_LINE_WIDTH, mScreenHeight - 1, BLUE);
+
+	// Drawing the blocks that are already stored in the board
+	mX1 += 1;
+
+	for( int i = 0; i < BOARD_WIDTH; i++){
+		for( int j = 0; j < BOARD_HEIGHT; j++){
+
+			// if the block is not free, draw
+			if( !mBoard->isFreeBlock(i, j) ){
+
+				mIO->drawRectangle(
+					mX1 + i * BLOCK_SIZE,
+					mY + j * BLOCK_SIZE,
+					(mX1+ i * BLOCK_SIZE) + BLOCK_SIZE - 1,
+					(mY + j * BLOCK_SIZE) + BLOCK_SIZE - 1,
+					RED
+				)
+			}
+		}
+	}
+}
+
+void Game::drawScene(){
+	drawBoard();													// draw the limitation lines and blocks stored in the board
+	drawPiece(mPosX, mPosY, mPiece, mRotation);						// draw the playing piece 
+	drawPiece( mNextPosX, mNextPosY, mNextPiece, mNextRotation); 	// draw the next place
+}
