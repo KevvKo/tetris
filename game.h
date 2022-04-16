@@ -34,5 +34,6 @@ class Game {
 		void drawPiece			(int pX, int pY, int pPiece, int pRotation);
 		void drawBoard			();
 
-}
+};
+
 #endif
