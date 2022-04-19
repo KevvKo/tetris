@@ -54,3 +54,33 @@ int IO::isKeyDown(int pKey){
 		mKeyTable() = SDL_GetKeyState(&mNumKeys);
 		return mKeyTable[pKey];
 }
+
+int IO::initGraph(){
+
+	const SDL_VideoInfo *info;
+	Uint8 video_bpp;
+	Uint32 videoflags;
+
+	if( SDL_Init(SDL_INIT_VIDEO) < 0){
+		fprintf(stderr, "Could'nt initialize SDL: %s\n", SDL_GetError());
+		return 1;
+	} 
+	atexit(SDL_Quit);
+
+	info = SDL_GetVideoInfo();
+
+	if(info->vfmt->BitsPerPixel > 0){
+		video_bpp = info->vfmt->BitsPerPixel;
+	}else {
+		video_bpp = 16;
+	}
+
+	videoflags = SDL_SWSURFACE | SDL_DOUBLEBUF;
+
+	if( (mScreen=SDL_SetVideoMode(640, 480, video_bpp, videoflags)) == NULL) {
+		fprintf(stderr, "Could'nt set %ix%i video mode %s\n", 640, 480, SDL_GetError());
+		return2
+	}
+
+	return 0;
+}
