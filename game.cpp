@@ -1,10 +1,6 @@
-#ifndef LINUX
-#include<windows.h>
-#endif
-
 #include "game.h"
 
-Game::Game(Board *pBoard, Pieces *pPieces, IO *pIO, int pScreenHeight){
+Game::Game( Board *pBoard, Pieces *pPieces, IO *pIO, int pScreenHeight){
 	
 	mScreenHeight = pScreenHeight;
 	mBoard = pBoard;
@@ -31,8 +27,8 @@ void Game::initGame(){
 
 	mPiece 			= getRand(0, 6);
 	mRotation 		= getRand(0, 3);
-	mPosX			= ( BOARD_WIDTH / 2) + mPieces->getXInitialPosition(mPiece, mRotation);
-	mPosY			= mPieces->getYInitialPosition( mPiece, mRotation);
+	mPosX			= ( BOARD_WIDTH / 2) + mPieces->GetXInitialPosition(mPiece, mRotation);
+	mPosY			= mPieces->GetYInitialPosition( mPiece, mRotation);
 
 	mNextPiece 		= getRand(0, 6);
 	mNextRotation 	= getRand(0, 3);
@@ -43,8 +39,8 @@ void Game::initGame(){
 void Game::createNewPiece(){
 	mPiece = mNextPiece;
 	mRotation = mNextRotation;
-	mPosX = (BOARD_WIDTH / 2) + mPieces->getXInitialPosition(mPiece, mRotation);
-	mPosY = mPieces->getYInitialPosition(mPiexe, mRotation);
+	mPosX = (BOARD_WIDTH / 2) + mPieces->GetXInitialPosition(mPiece, mRotation);
+	mPosY = mPieces->GetYInitialPosition(mPiece, mRotation);
 
 	mNextPiece = getRand(0, 6);
 	mNextRotation = getRand(0, 3);
@@ -61,27 +57,28 @@ void Game::drawPiece(int pX, int pY, int pPiece, int pRotation ){
 
 	color mColor;
 
-	int mPixelsX = mBoard->getXPosInPixels(px);
+	int mPixelsX = mBoard->getXPosInPixels(pX);
 	int mPixelsY = mBoard->getYPosInPixels(pY);
 
 
 	for( int i = 0; i < PIECE_BLOCKS; i++){
 		for( int j = 0; j < PIECE_BLOCKS; j++){
 
-			switch( mPieces->getBlockType(pPiece, pRotation, j, i)){
+			switch( mPieces->GetBlockType(pPiece, pRotation, j, i)){
 
 				case 1: mColor = GREEN; break;  // each block except pivot
 				case 2: mColor = BLUE; break; 	// just for the pivot block
 			}
 
-			if( mPieces->getBlockType( mPiece, mRotation, j, i) != 0){
+			if( mPieces->GetBlockType( mPiece, mRotation, j, i) != 0){
 
 				mIO-> drawRectangle(
 					mPixelsX + i * BLOCK_SIZE,
 					mPixelsY + j * BLOCK_SIZE,
 					(mPixelsX + i * BLOCK_SIZE ) + BLOCK_SIZE -1,
-					(mPixelsY+ j * BLOCK_SIZE ) + BLOCK_SIZE -1
-					)
+					(mPixelsY+ j * BLOCK_SIZE ) + BLOCK_SIZE -1,
+					mColor
+					);
 			}
 		}
 	}
@@ -90,7 +87,7 @@ void Game::drawPiece(int pX, int pY, int pPiece, int pRotation ){
 void Game::drawBoard(){
 
 	// Calculate the limits of the board in pixels	
-	int mX1 = BOARD_POSITION - ( BLOCK_SIZE * (BOARD_WIDTH / 2)) - x;
+	int mX1 = BOARD_POSITION - ( BLOCK_SIZE * (BOARD_WIDTH / 2)) - 1;
 	int mX2 = BOARD_POSITION + ( BLOCK_SIZE * (BOARD_WIDTH / 2));
 	int mY = mScreenHeight - (BLOCK_SIZE * BOARD_HEIGHT);
 
@@ -115,7 +112,7 @@ void Game::drawBoard(){
 					(mX1+ i * BLOCK_SIZE) + BLOCK_SIZE - 1,
 					(mY + j * BLOCK_SIZE) + BLOCK_SIZE - 1,
 					RED
-				)
+				);
 			}
 		}
 	}

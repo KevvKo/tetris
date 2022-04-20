@@ -122,7 +122,7 @@ int Board::getYPosInPixels(int pPos){
 */
 bool Board::isPossibleMovement( int pX, int pY, int pPiece, int pRotation){
 
-	for( int i1 = pX, i2 = 0; i1 < pX + PIECE_BLOCKS, i1++, i2++){
+	for( int i1 = pX, i2 = 0; i1 < pX + PIECE_BLOCKS; i1++, i2++){
 		for( int j1 = pY, j2 = 0; j1 < pY + PIECE_BLOCKS; j1++, j2++){
 
 			// checks if the block is outside the board limits
@@ -133,7 +133,7 @@ bool Board::isPossibleMovement( int pX, int pY, int pPiece, int pRotation){
 			// vhecks if the piece is collisioned with a block already stored in the board
 			if(j1 >= 0){
 				if(( mPieces->GetBlockType(pPiece, pRotation, j2, i2) != 0) && !isFreeBlock(i1, j1)){
-					return false
+					return false;
 				}
 			}
 		}

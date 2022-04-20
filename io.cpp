@@ -6,7 +6,7 @@ static Uint32 mColors [COLOR_MAX] = {
     0x00ffffff, 0xff00ffff, 0xffff00ff, 0xffffffff
 };
 
-class IO::IO(){
+IO::IO(){
 	initGraph();
 }
 
@@ -20,7 +20,7 @@ void IO::clearScreen(){
 		>> pX2, pY2: 		Lower right corner of the rectangle
 		>> pC				Rectangle color
 */
-void IO::drawRectAngle( int pX1, int pY1, int pX2, int pY2, enum color pC){
+void IO::drawRectangle( int pX1, int pY1, int pX2, int pY2, enum color pC){
 	boxColor( mScreen, pX1, pY1, pX2, pY2-1, mColors[pC]);
 }
 
@@ -33,7 +33,7 @@ void IO::updateScreen(){
 	SDL_Flip(mScreen);
 }
 
-int IO:getKey(){
+int IO::getKey(){
 	
 	SDL_Event event; 
 
@@ -41,17 +41,17 @@ int IO:getKey(){
 		SDL_WaitEvent(&event);
 
 		if(event.type == SDL_KEYDOWN) break;
-		if(event.type == SDWL_QUIT) exit(3);
-
-		return event.key.keysym.sym;
+		if(event.type == SDL_QUIT) exit(3);
 	}
+	return event.key.keysym.sym;
+
 }
 
 int IO::isKeyDown(int pKey){
 		Uint8 * mKeyTable;
 		int mNumKeys;
 		SDL_PumpEvents();
-		mKeyTable() = SDL_GetKeyState(&mNumKeys);
+		mKeyTable = SDL_GetKeyState(&mNumKeys);
 		return mKeyTable[pKey];
 }
 
@@ -79,7 +79,7 @@ int IO::initGraph(){
 
 	if( (mScreen=SDL_SetVideoMode(640, 480, video_bpp, videoflags)) == NULL) {
 		fprintf(stderr, "Could'nt set %ix%i video mode %s\n", 640, 480, SDL_GetError());
-		return2
+		return 2;
 	}
 
 	return 0;

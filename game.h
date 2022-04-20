@@ -3,15 +3,15 @@
 
 #include "board.h"
 #include "pieces.h"
+#include "io.h"
 #include <time.h>
-
 #define WAIT_TIME 700 // number of milliseconds that remain before a piece going one block down
 
 class Game {
 
 	public:
 
-		Game 					(board *pBoard, Piece *pPieces, IO *pIO, int pScreenHeight);
+		Game 					(Board *pBoard, Pieces *pPieces, IO *pIO, int pScreenHeight);
 
 		void drawScene			();
 		void createNewPiece		();
