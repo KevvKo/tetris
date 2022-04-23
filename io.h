@@ -2,8 +2,8 @@
 #define _IO_
 
 
-#include <SDL/SDL.h>									
-#include "SDL/SDL_GfxPrimitives/sdl_gfxprimitives.h"	
+#include <SDL2/SDL.h>
+#include <SDL_GfxPrimitives/sdl_gfxprimitives.h>
 
 #pragma comment (lib, "SDL/lib/SDL.lib")
 #pragma comment (lib, "SDL/SDL_GfxPrimitives/SDL_GfxPrimitives_Static.lib")
